@@ -1,0 +1,26 @@
+:root{
+	text-align: center;
+}
+.kitten:nth-child(1n+2){
+	margin-top: 70px;
+	background: red;
+}
+
+img{
+	border: solid 2px darkgray;
+}
+
+h3{
+	font-size: 1.5em;
+	color: rgba(105, 55, 255, .5);
+	text-shadow:0 1px 0 rgba(255, 255, 255, .5);
+	text-transform: capitalize;
+	padding:0;
+	margin-bottom:.5em;
+}
+
+p{
+	color:red;
+	width:200px;
+	margin: auto;
+}

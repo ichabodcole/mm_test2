@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+
 activate :livereload
 ###
 # Compass
@@ -42,11 +45,38 @@ activate :livereload
 # activate :automatic_image_sizes
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+
+  def get_kitten_name
+    url = "http://randomword.setgetgo.com/get.php"
+    resp = Net::HTTP.get_response(URI.parse(url))
+    #data = JSON.parse(resp.body)
+    k_name = resp.body.force_encoding('UTF-8')
+    return k_name
+  end
+
+  def get_meat_text
+    url = "http://baconipsum.com/api/?paras=1&sentences=1&type=meat-and-filler"
+    resp = Net::HTTP.get_response(URI.parse(url))
+    data = JSON.parse(resp.body)
+    return data[0]
+  end
+
+  def get_kittens(kitten_amount)
+    str = ""
+    (1..kitten_amount).each do
+      k_width  = rand(100..200)
+      k_height  = rand(100..200)
+      kitten_size = "#{k_width}/#{k_height}"
+      str +="<div class='kitten'>\n"
+        str+="<img src='http://placekitten.com/#{kitten_size}'>\n"
+        str+="<h3>Hello, I'm "+get_kitten_name+"!</h3>\n"
+        str+="<p>"+get_meat_text+"</p>\n"
+      str+="</div>\n"
+    end
+    return str
+  end
+end
 
 set :css_dir, 'stylesheets'
 
